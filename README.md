@@ -58,19 +58,18 @@ This will add the following entry to your `package.json`:
 
 ### 4. Updating Local Dependencies
 
-Note that local packages don't update automatically. If you make changes to the local dependency, you will need to force an update by running:
+Local packages do not update automatically. If you make changes to the local dependency, you'll need to manually update it by following these steps:
 
-```bash
-npm run build
-```
-to rebuild the package
+1. Rebuild the package:
+   ```bash
+   npm run build
+   ```
 
-
-```bash
-npm install
-npm start
-```
-too update the dependencie, and reinstall the updated build of package
+2. Install the updated dependency and start the bot in the project you're testing:
+   ```bash
+   npm install
+   npm start
+   ```
 
 ### 5. ChatBot Component Usage
 
@@ -101,11 +100,13 @@ To integrate the chatbot into your React project, use the following component:
 
 ---
 
-## Demo
+## Screenshots
 
-![Screenshot 2024-12-03 at 12 19 56 PM](https://github.com/user-attachments/assets/ba42422f-bdae-448a-b7aa-43ee4cc4ac8f)
-
-![Screenshot 2024-12-03 at 12 20 55 PM](https://github.com/user-attachments/assets/1a3f142b-9439-4578-86e9-a5156a70ca0f)
+<img width="1280" alt="Screenshot 2025-01-08 at 4 08 46 AM" src="https://github.com/user-attachments/assets/a7842679-1eba-452d-9a68-baa91a26459d" />
+<img width="1280" alt="Screenshot 2025-01-08 at 4 09 11 AM" src="https://github.com/user-attachments/assets/8a3a62d9-2ec4-47f3-97b1-ae95fc2e1596" />
+<img width="1280" alt="Screenshot 2025-01-08 at 4 09 13 AM" src="https://github.com/user-attachments/assets/45db286c-1eb6-4204-a844-ad29a931faa5" />
+<img width="1280" alt="Screenshot 2025-01-08 at 4 09 26 AM" src="https://github.com/user-attachments/assets/3835baa7-a6a1-4885-a12c-652ba808dca7" />
+<img width="1280" alt="Screenshot 2025-01-08 at 4 09 49 AM" src="https://github.com/user-attachments/assets/be8150b7-dd74-4606-8c9c-e5446cef528d" />
 
 ---
 
