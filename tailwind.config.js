@@ -7,38 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        chat: {
-          background: '#202020',
-          textColor: '#ffffff',
-          inputOption: {
-            color: '#d6d6d6',
-            colorHover: '#a7a7a7',
-            background: '#414141',
-          },
-        },
-        heading: '#ffeaea',
-        textarea: {
-          border: '#4c4c4c',
-          background: '#2c2c2c',
-        },
-        searchIcon: {
-          color: '#fff',
-          bg: '#2ea61d',
-          bgHover: '#2c911f',
-          bgDisabled: '#2c911f4d',
-        },
-        inputOption: {
-          bg: '#2c2c2c',
-          color: '#ffffff',
-          iconBg: '#f2f2f2',
-          iconColor: '#3a3a3a',
-        },
-        skeleton: {
-          iconGradient:
-            'linear-gradient(transparent 50%, rgb(39, 49, 63) 50%) 0% 0% / 18px 144px, linear-gradient(rgb(143, 168, 138), rgba(15, 170, 24, 0.39)) 0% 0% / 100% 44px',
-          textGradient:
-            'linear-gradient(transparent 50%, rgb(39, 49, 63) 50%) 0% 0% / 18px 20px, linear-gradient(rgb(143, 168, 138), rgba(15, 170, 24, 0.39)) 0% 0% / 100% 30px',
-        },
         woodsmoke: {
           "50": "#f5f5f6",
           "100": "#e6e6e7",
@@ -108,6 +76,16 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        loading: {
+          '0%': { opacity: '0.5' },
+          '50%': { opacity: '1' },
+          '100%': { opacity: '0.5' },
+        },
+      },
+      animation: {
+        loading: 'loading 2s ease-in-out infinite',
       },
     },
   },

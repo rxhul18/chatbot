@@ -4,7 +4,8 @@ import 'highlight.js/styles/github-dark.css';
 import { v4 as uuidv4 } from 'uuid';
 import { questionFamily } from '../store/atoms/questionFamily';
 import { allChats } from '../store/atoms/allChats';
-import '../styles/style.css'
+import { submitIconStateDisabled } from '../store/atoms/chatWindowState copy';
+import '../index.css'
 
 export default function Input(){
     let inputElement=useRef()
@@ -12,34 +13,33 @@ export default function Input(){
     let id=useRef(uuidv4());
     let setQuestion=useSetRecoilState(questionFamily(id.current))
     let [history,setChatHistory]=useRecoilState(allChats);
+    let [disabled,setDisabled]=useRecoilState(submitIconStateDisabled);
     
     function handleKeyDown(event){
-      inputElement.current.value.trim().length!=0?
-        submitBtn.current.classList.remove("disabled"):
-        submitBtn.current.classList.add("disabled")
+      setDisabled(inputElement.current.value.trim().length==0)
       if (event.key === 'Enter') {
         event.preventDefault()
-        if(inputElement.current.value.trim().length!=0){
+        if(!disabled){
           setQuestion(q=>({...q,question: inputElement.current.value}))
           setChatHistory(history=>[...history,{question:id.current,answer:null}])
           id.current=uuidv4();
           inputElement.current.value="";
-          submitBtn.current.classList.add("disabled")
+          setDisabled(true)
         }
       }
     } 
 
     function handleSubmit(){
-      if(inputElement.current.value!=""){
+      if(!disabled){
         setQuestion(q=>({...q,question: inputElement.current.value}))
         setChatHistory(history=>[...history,{question:id.current,answer:null}])
         id.current=uuidv4();
         inputElement.current.value="";
-        submitBtn.current.classList.add("disabled")
+        setDisabled(true)
       }
     }
-    
-    return <div className='bg-secondary/30 rounded-2xl w-full flex flex-col border border-border/60  dark:border-border relative mt-2'>
+  
+    return <div className='bg-secondary/30 rounded-2xl w-full flex flex-col border border-border/60  dark:border-border relative mt-2 '>
       <textarea 
         ref={inputElement} 
         onKeyUp={handleKeyDown} 
@@ -50,10 +50,10 @@ export default function Input(){
       <span 
         ref={submitBtn} 
         onClick={handleSubmit} 
-        className='placeholder-sans placeholder:text-input absolute right-2 top-2 disabled cursor-pointer inline-flex items-center justify-center whitespace-nowrap 
+        className={`placeholder-sans placeholder:text-input absolute right-2 top-2 disabled cursor-pointer inline-flex items-center justify-center whitespace-nowrap 
         text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
         disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
-        bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 rounded-xl w-9' 
+        bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 rounded-xl w-9 ${disabled&& `opacity-20 bg-black cursor-not-allowed`}`}
         title="Send"
       >
         <i class="fa-solid fa-square-arrow-up-right"></i>
@@ -64,7 +64,7 @@ export default function Input(){
   
 function InputOptions(){
     return <div className='bg-secondary/30 rounded-2xl flex flex-grow items-center backdrop-blur-lg 
-    supports-[backdrop-filter]:bg-transparent dark:border-border px-4 py-2 h-10 gap-2'>
+    supports-[backdrop-filter]:bg-transparent dark:border-border px-4 py-2 h-10 gap-2 '>
         <div className='inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs 
         font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
         disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 

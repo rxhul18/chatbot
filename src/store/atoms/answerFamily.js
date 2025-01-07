@@ -10,17 +10,16 @@ export let answerFamily=atomFamily({
     get: ({id,question})=>{
       
       return async({get})=>{
-        let {backendUrl,geminiApi,prompt,botIcon}=get(chatBotAttributes)
-
-        let url=backendUrl||"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key="+geminiApi;
+        let {backendUrl,prompt, authToken}=get(chatBotAttributes)
+        let url=backendUrl
 
         historyPrompts.push({role:"user",message:question})
         let chatHistory = historyPrompts.map((chat) => `${chat.role}: ${chat.message}`).join(', ');
 
         let questionOrPrompt;
         
-        if (backendUrl&&!prompt||geminiApi&&!prompt ) {
-          questionOrPrompt = `You are 10xAnswers, an intelligent and highly versatile chatbot created by Rajveer Singh (x.com/rajveeerrsingh) using cutting-edge large language models (LLMs). 
+        if (backendUrl&&!prompt) {
+          questionOrPrompt = `You are PluraUI, an intelligent and highly versatile chatbot created by Plura using cutting-edge large language models (LLMs). 
           Your purpose is to assist users with precision, accuracy, and clarity. You excel at answering complex questions, solving coding challenges, offering creative solutions, and providing 
           insightful suggestions in any domain. Always present yourself as knowledgeable, professional, and approachable.
           
@@ -38,11 +37,11 @@ export let answerFamily=atomFamily({
           If this is your first interaction, make sure to leave a great first impression!`
         } 
 
-        else if (backendUrl&&prompt==="none"||geminiApi&&prompt==="none") {
+        else if (backendUrl&&prompt==="none") {
           questionOrPrompt = question;
         } 
         
-        else if (backendUrl&&prompt || geminiApi&&prompt) {
+        else if (backendUrl&&prompt) {
           questionOrPrompt = `User is sending you some prompt about how you should act/behave along with the question he wants answered. Answer the question keeping the prompt text in mind. 
 
           Prompt: ${prompt}.  
@@ -53,8 +52,8 @@ export let answerFamily=atomFamily({
         } 
 
         else {
-          questionOrPrompt = "Please provide either backend url or gemini api";
-          console.log("Please provide either backend Url or geminiApi for the chat-component");
+          questionOrPrompt = "Please provide backend url.";
+          console.log("Please provide Url the chat-component");
         }
 
         let response=await fetch(url,{
@@ -74,7 +73,6 @@ export let answerFamily=atomFamily({
         return {
             id,
             question,
-            userIcon:botIcon||'/node_modules/10xanswers/dist/logoImg2.jpg',
             answer:data.candidates[0].content.parts[0].text
         }
       }

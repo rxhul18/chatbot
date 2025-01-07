@@ -8,10 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { allChats } from '../store/atoms/allChats';
 import { questionFamily } from '../store/atoms/questionFamily';
 import { answerFamily } from '../store/atoms/answerFamily';
-import '../styles/style.css'
+import { chatBotAttributes } from '../store/atoms/attributesData';
 
 export default function Chat(props){
-
+    let {botIcon}=useRecoilValue(chatBotAttributes)
     let askedQuestion=useRecoilValue(questionFamily(props.questionId))
     let answerId=useRef(uuidv4())
     let [currentAnswer,setAnswer]=useRecoilStateLoadable(answerFamily({id:answerId.current,question:askedQuestion.question}))
@@ -30,41 +30,51 @@ export default function Chat(props){
       
     if(currentAnswer.state==='loading'){
   
-      return <div className='chat'>
-      <div className='user-icon skeleton'>
-        <div className='icon-placeholder'></div>
+      return <div className="bg-secondary p-3 flex gap-2 rounded-xl flex-grow flex-col space-y-6 border-t-2 border-r border-[#333] border-opacity-80 m-3 bg-gradient-to-br from-secondary/30 to-[#262829]">
+      <div className="w-[2.6rem] aspect-square  bg-gradient-to-br from-primary/30 to-[#262829] rounded-xl animate-[loading_2s_infinite]" />
+      <div className="m-0 flex flex-col w-full">
+        <p className="m-0 px-2 animate-[loading_2s_infinite] bg-gradient-to-br from-primary/30 to-[#262829] h-8 rounded-lg flex-grow"></p>
       </div>
-      <div className='chat-and-options'>
-        <p className='chat-content skeleton text-placeholder'></p>
-        <div className='chat-options'>
-          <span className='copy chat-option'><span className='copy-icon'></span></span>
-          <span className='collection chat-option'><span className='collection-icon'></span></span>
-        </div>
-      </div>
-      </div>
+    </div>
     }
     
     if(currentAnswer.state==='hasError'){
       console.log(currentAnswer.contents);
       
       return <div style={{display: "flex",justifyContent:"center"}}>
-        <div className='error chat-option' style={{display:"flex",justifyContent:"center",width:"max-content"}}>Some Error Occured While Generating Response</div>
+        <div className='inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md text-xs 
+          font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+          disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
+          bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-8 w-max px-2 cursor-pointer m-4' 
+        >
+          Some Error Occured While Generating Response
+        </div>
       </div>
     }
     
-    return <div className='chat'>
-      <div className='user-icon'>
-        <img src={currentAnswer.contents.userIcon}></img>
-      </div>
-      <div className='chat-and-options'>
-        <p className='chat-content'>
+    return <div className=' flex gap-2 flex-grow flex-col space-y-1.5 border-t-2 border-r border-[#333] border-opacity-80 m-3 bg-gradient-to-br from-secondary/30 to-[#262829] border text-card-foreground shadow bg-secondary/30 backdrop-blur-lg rounded-2xl p-2'>
+      <span className="min-w-10">
+        <img 
+          className="rounded-xl w-10 aspect-square object-cover" 
+          src={botIcon||'https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75'}>
+        </img>
+      </span>
+      <div className='m-0 flex flex-col w-full overflow-x-scroll'>
+        <p className='m-0 text-sm text-left px-2 text-secondary-foreground font-sans '>
             <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
                 {currentAnswer.contents.answer}
             </ReactMarkdown>
         </p>
-        <div className='chat-options'>
-          <span onClick={handleCopy}  className='copy chat-option'><span className='copy-icon'><i class="fa-regular fa-clipboard"></i></span>Copy</span>
-          {/* <span className='collection chat-option'><span className='collection-icon'><i class="fa-regular fa-bookmark"></i></span>Add to Collection</span> */}
+        <div className='flex w-full justify-end mt-2 gap-2'>
+          <div 
+          onClick={handleCopy} 
+          className='inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md text-xs 
+          font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+          disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
+          bg-sidebar text-secondary-foreground shadow-sm hover:bg-secondary/80 h-8 w-max px-2 cursor-pointer '>
+            <i class="fa-regular fa-clipboard"></i>
+            Copy
+        </div>
         </div>
       </div>
     </div>

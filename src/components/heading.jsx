@@ -1,11 +1,9 @@
-import '../styles/style.css'
-
 export default function Heading({ setWindowState }) {
 
   return <div className='absolute top-2 w-[96%] p-[0.8rem_2rem] flex z-[999]  justify-between bg-secondary/30 
   backdrop-blur-lg supports-[backdrop-filter]:bg-secondary/50 dark:border-border rounded-2xl'>
     <div className='flex flex-row items-center gap-2'>
-      <img src="./images/plura-logo.png" alt="plurala" className="w-8 h-8" />
+      <img src="https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75" alt="plura" className="w-8 h-8" />
       <h2 className='font-bold text-xl tracking-tighter'>
         PluraBot
       </h2>

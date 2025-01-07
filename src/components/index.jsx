@@ -1,4 +1,3 @@
-import '../styles/style.css'
 import 'highlight.js/styles/github-dark.css';
 import Input from './inputArea';
 import ChatArea from './chatArea';
@@ -57,7 +56,7 @@ function ChatBotWrapper({
           <Input/>
       </div>
       {!open&&<div className={`cursor-pointer rounded-2xl w-[3.8rem] aspect-[1/1] bg-secondary/50 text-secondary-foreground bg-cover bg-center flex items-center justify-center text-2xl hover:grayscale-0 hover:rotate-2 ${chatBotIconClassName}`} onClick={()=>setWindowOpen(!open)}>
-        <span><img src="./images/plura-logo.png" alt="plura" className="w-8 h-8"/></span>
+        <span><img src="https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75" alt="plura" className="w-8 h-8"/></span>
       </div>}
     </div>
   </>
