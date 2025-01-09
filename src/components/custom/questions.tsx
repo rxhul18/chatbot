@@ -1,38 +1,41 @@
-import { questionFamily } from "../store/atoms/questionFamily"
-import { useRef, useState } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import 'highlight.js/styles/github-dark.css';
-import { chatBotAttributes } from "../store/atoms/attributesData";
+import { useRef, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import "highlight.js/styles/github-dark.css";
+import { questionFamily } from "../../store/atoms/questionFamily";
+import { chatBotAttributes as chatBotAttributesAtom } from "../../store/atoms/attributesData"; 
+import { Question } from "@/types";
+import { ChatBotAttr } from "@/types";
 
-export default function Question(props){
-  let {userIcon}=useRecoilValue(chatBotAttributes)
-  let [currentQuestion,setQuestion]=useRecoilState(questionFamily(props.id))
+export default function QuestionComponent(props: Question) {
+  const chatBotAttributes: ChatBotAttr | null = useRecoilValue(chatBotAttributesAtom) || null;
+  const userIcon = chatBotAttributes?.userIcon || "default-icon";
+  const [currentQuestion,setQuestion]=useRecoilState(questionFamily(props.id))
   
-  let [editing,setEditing]=useState(false)
-  let questionArea=useRef()
-  let originalQuestion=useRef()
-  
+  const [editing,setEditing]=useState(false)
+  const questionArea = useRef<HTMLParagraphElement | null>(null);
+  const originalQuestion = useRef<string | null>(null); // This should hold a string
+
   function handleEdit(){
-    questionArea.current.contentEditable="true"
+    questionArea.current!.contentEditable="true"
     // questionArea.current.classList.add("editing")
     setEditing(editing=>!editing)
-    originalQuestion.current=questionArea.current.innerText
+    originalQuestion.current=questionArea.current!.innerText
   }
 
   function handleSubmit(){
-    questionArea.current.contentEditable="false"
+    questionArea.current!.contentEditable="false"
     // questionArea.current.classList.remove("editing")
     setEditing(editing=>!editing)
     
-    setQuestion(q=>({...q,question:questionArea.current.innerText}))
+    setQuestion(q=>({...q,question:questionArea.current!.innerText}))
   }
 
-  function handleCancel(){
-    questionArea.current.contentEditable="false"
-    // questionArea.current.classList.remove("editing")
-    setEditing(editing=>!editing)
-    
-    questionArea.current.innerText=originalQuestion.current
+  function handleCancel() {
+    if (questionArea.current) {
+      questionArea.current.contentEditable = "false";
+      setEditing((editing) => !editing);
+      questionArea.current!.innerText = originalQuestion.current || "";
+    }
   }
   
   return <div className='p-4 flex flex-col flex-grow bg-transparent w-full'>
@@ -54,7 +57,7 @@ export default function Question(props){
         font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
         disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
         bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-5' onClick={handleEdit}>
-          <i class="fa-solid fa-pen"></i>
+          <i className="fa-solid fa-pen"></i>
         </span>}
     </div>
     {editing&&<div className='flex items-center justify-end gap-2 mt-3'>
@@ -64,7 +67,7 @@ export default function Question(props){
           font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
           disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
           bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-7 px-2 cursor-pointer'>
-            <i class="fa-regular fa-save"></i>
+            <i className="fa-regular fa-save"></i>
             Save
         </div>
         <div 
@@ -73,7 +76,7 @@ export default function Question(props){
           font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
           disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
           bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-7 px-2 cursor-pointer'>
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
             Cancel
         </div>
     </div>}

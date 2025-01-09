@@ -1,20 +1,22 @@
 import { useEffect, useRef } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import Online from './onlineIndicator';
-import { allChats } from '../store/atoms/allChats';
-import Question from './questions';
-import Chat from './answerComponent';
+import { useRecoilState } from 'recoil'
+import { allChats } from '../../store/atoms/allChats';
 
-function scrollToBottom(element) {
+import Chat from './answerComponent';
+import QuestionComponent from './questions';
+
+function scrollToBottom(element: HTMLElement) {
   element.scrollTop = element.scrollHeight
 }
 
 export default function ChatArea() {
-  let [chatHistory, setChatHistory] = useRecoilState(allChats)
-  let chatArea = useRef();
+  const [chatHistory] = useRecoilState(allChats)
+  const chatArea = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scrollToBottom(chatArea.current)
+    if (chatArea.current) {
+      scrollToBottom(chatArea.current)
+    }
   }, [chatHistory])
 
   return <div className='flex-grow h-max flex flex-col overflow-y-scroll py-20 px-0 rounded-xl w-full overflow-x-hidden text-center z-[998] items-center scroll-smooth' ref={chatArea}>
@@ -23,7 +25,7 @@ export default function ChatArea() {
     <div style={{ width: "100%" }}>
       {chatHistory.map((history, index) => {
         return (<>
-          <Question key={index + history.question} id={history.question} />
+          <QuestionComponent key={index + history.question} id={history.question} question={history.question} />
           <Chat key={index} questionId={history.question} />
         </>)
       })}

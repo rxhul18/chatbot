@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export let chatWindowState=atom({
+export const submitIconState=atom<boolean>({
     key:"chatWindowState",
     default: false
 })
