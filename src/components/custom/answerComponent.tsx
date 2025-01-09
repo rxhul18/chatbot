@@ -33,7 +33,7 @@ export default function Chat(props:ChatProp) {
         : chat
     );
     setChatHistory(updatedAnswerId);
-  });
+  },[]);
   
   function handleCopy() {
     navigator.clipboard.writeText(currentAnswer.contents);

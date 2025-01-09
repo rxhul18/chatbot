@@ -18,7 +18,7 @@ export default function Input() {
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (inputElement.current) {
-      // setDisabled(inputElement.current.value.trim().length === 0);
+      setDisabled(inputElement.current.value.trim().length === 0);
     }
     if (event.key === 'Enter') {
       event.preventDefault()
