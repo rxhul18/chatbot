@@ -8,7 +8,7 @@ import { ChatBotAttr } from "@/types";
 
 export default function QuestionComponent(props: Question) {
   const chatBotAttributes: ChatBotAttr | null = useRecoilValue(chatBotAttributesAtom) || null;
-  const userIcon = chatBotAttributes?.userIcon || "default-icon";
+  const userIcon = chatBotAttributes?.userIcon || "https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75";
   const [currentQuestion,setQuestion]=useRecoilState(questionFamily(props.id))
   
   const [editing,setEditing]=useState(false)

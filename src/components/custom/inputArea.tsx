@@ -7,6 +7,7 @@ import { allChats } from '../../store/atoms/allChats';
 import { submitIconState } from '../../store/atoms/submitIconState';
 import '../../index.css'
 import { ChatHistory } from '@/types';
+import { Textarea } from '../ui/textarea';
 
 export default function Input() {
   const inputElement = useRef<HTMLTextAreaElement>(null)
@@ -45,13 +46,9 @@ export default function Input() {
   }
 
   return <div className='bg-secondary/30 rounded-2xl w-full flex flex-col border border-border/60  dark:border-border relative mt-2 '>
-    <textarea
-      ref={inputElement}
-      onKeyUp={handleKeyDown}
-      placeholder='Ask your query and press Enter'
-      className='flex flex-grow h-24 rounded-inherit text-base text-start font-medium bg-transparent p-4 resize-none 
-        border-none font-sans outline-none'>
-    </textarea>
+    <Textarea ref={inputElement} onKeyUp={handleKeyDown} placeholder='Ask your query and press Enter' 
+    className='h-24 outline-none ring-0 no-scrollbar overflow-y-scroll focus-visible:ring-0 focus-visible:ring-neutral-900 
+    focus:oultine-none focus:stroke-none border-none focus:border-none placeholder:text-neutral-600 text-white !text-lg'/>
     <span
       ref={submitBtn}
       onClick={handleSubmit}

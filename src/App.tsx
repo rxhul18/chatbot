@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-secondary/30 flex justify-center  min-h-screen">
+      <div className="bg-secondary/30 flex justify-center h-screen">
         <div className='p-10 md:p-24 flex flex-col items-center gap-5 md:max-w:[700px]'>
           <h1 className='text-5xl md:text-6xl font-semibold tracking-tighter drop-shadow-sm max-w-3xl select-none'>This is how the chatbot looks like.</h1>
           <ChatBot 

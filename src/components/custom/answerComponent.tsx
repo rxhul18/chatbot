@@ -7,23 +7,23 @@ import remarkGfm from "remark-gfm";
 import { v4 as uuidv4 } from 'uuid';
 import { allChats } from '../../store/atoms/allChats';
 // import { answerFamily } from '../../store/atoms/answerFamily';
-import { chatBotAttributes as chatBotAttributesAtom } from "../../store/atoms/attributesData"; 
+import { chatBotAttributes as chatBotAttributesAtom } from "../../store/atoms/attributesData";
 import { useState } from 'react';
 import { ChatBotAttr } from '@/types';
 
-type ChatProp={
+type ChatProp = {
   questionId: string
 }
 
-export default function Chat(props:ChatProp) {
+export default function Chat(props: ChatProp) {
   const chatBotAttributes: ChatBotAttr | null = useRecoilValue(chatBotAttributesAtom) || null;
 
-  const botIcon = chatBotAttributes?.botIcon || "default-icon";
-  
+  const botIcon = chatBotAttributes?.botIcon || "https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75";
+
   const answerId = useRef(uuidv4())
   // let [currentAnswer,setAnswer]=useRecoilStateLoadable(answerFamily({id:answerId.current,question:askedQuestion.question}))
-  const [currentAnswer]=useState({contents:"Hi, this is a dummy answer!!",state: "loaded"})
-  
+  const [currentAnswer] = useState({ contents: "Hi, this is a dummy answer!!", state: "loaded" })
+
   const [chatHistory, setChatHistory] = useRecoilState(allChats)
 
   useEffect(() => {
@@ -33,8 +33,8 @@ export default function Chat(props:ChatProp) {
         : chat
     );
     setChatHistory(updatedAnswerId);
-  },[]);
-  
+  }, []);
+
   function handleCopy() {
     navigator.clipboard.writeText(currentAnswer.contents);
   }
@@ -70,7 +70,7 @@ export default function Chat(props:ChatProp) {
         src={botIcon || 'https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75'}>
       </img>
     </span>
-    <div className='m-0 flex flex-col w-full overflow-x-scroll'>
+    <div className='m-0 flex flex-col w-full overflow-x-scroll no-scrollbar'>
       <p className='m-0 text-sm text-left px-2 text-secondary-foreground font-sans '>
         <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
           {currentAnswer.contents}
