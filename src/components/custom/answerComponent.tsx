@@ -6,10 +6,12 @@ import 'highlight.js/styles/github-dark.css';
 import remarkGfm from "remark-gfm";
 import { v4 as uuidv4 } from 'uuid';
 import { allChats } from '../../store/atoms/allChats';
-// import { answerFamily } from '../../store/atoms/answerFamily';
 import { chatBotAttributes as chatBotAttributesAtom } from "../../store/atoms/attributesData";
 import { useState } from 'react';
 import { ChatBotAttr } from '@/types';
+import { Clipboard } from 'lucide-react';
+import { Button } from '../ui/button';
+
 
 type ChatProp = {
   questionId: string
@@ -17,15 +19,10 @@ type ChatProp = {
 
 export default function Chat(props: ChatProp) {
   const chatBotAttributes: ChatBotAttr | null = useRecoilValue(chatBotAttributesAtom) || null;
-
   const botIcon = chatBotAttributes?.botIcon || "https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75";
-
-  const answerId = useRef(uuidv4())
-  // let [currentAnswer,setAnswer]=useRecoilStateLoadable(answerFamily({id:answerId.current,question:askedQuestion.question}))
-  const [currentAnswer] = useState({ contents: "Hi, this is a dummy answer!!", state: "loaded" })
-
-  const [chatHistory, setChatHistory] = useRecoilState(allChats)
-
+  const answerId = useRef(uuidv4());
+  const [currentAnswer] = useState({ contents: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et aliquid illum omnis quis nostrum repellat! Earum aliquam oremque porro iusto enim quasi officiis itaque eos quis.", state: "loaded" });
+  const [chatHistory, setChatHistory] = useRecoilState(allChats);
   useEffect(() => {
     const updatedAnswerId = chatHistory.map(chat =>
       chat.question === props.questionId
@@ -40,53 +37,56 @@ export default function Chat(props: ChatProp) {
   }
 
   if (currentAnswer.state === 'loading') {
-
-    return <div className="bg-secondary p-3 flex gap-2 rounded-xl flex-grow flex-col space-y-6 border-t-2 border-r border-[#333] border-opacity-80 m-3 bg-gradient-to-br from-secondary/30 to-[#262829]">
-      <div className="w-[2.6rem] aspect-square  bg-gradient-to-br from-primary/30 to-[#262829] rounded-xl animate-[loading_2s_infinite]" />
-      <div className="m-0 flex flex-col w-full">
-        <p className="m-0 px-2 animate-[loading_2s_infinite] bg-gradient-to-br from-primary/30 to-[#262829] h-8 rounded-lg flex-grow"></p>
+    return (
+      <div className="bg-secondary p-2 flex rounded-xl flex-col space-y-3 border border-[#333]/80">
+        <div className="w-10 aspect-square bg-primary/30 rounded-xl animate-pulse" />
+        <div className="flex flex-col w-full">
+          <p className="px-2 animate-pulse bg-primary/30 h-16 rounded-lg" />
+        </div>
       </div>
-    </div>
+    );
   }
 
   if (currentAnswer.state === 'hasError') {
-    console.log(currentAnswer.contents);
-
-    return <div style={{ display: "flex", justifyContent: "center" }}>
-      <div className='inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md text-xs 
-          font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-          disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
-          bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-8 w-max px-2 cursor-pointer m-4'
-      >
-        Some Error Occured While Generating Response
-      </div>
-    </div>
-  }
-
-  return <div className=' flex gap-2 flex-grow flex-col space-y-1.5 border-t-2 border-r border-[#333] border-opacity-80 m-3 bg-gradient-to-br from-secondary/30 to-[#262829] border text-card-foreground shadow bg-secondary/30 backdrop-blur-lg rounded-2xl p-2'>
-    <span className="min-w-10">
-      <img
-        className="rounded-xl w-10 aspect-square object-cover"
-        src={botIcon || 'https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75'}>
-      </img>
-    </span>
-    <div className='m-0 flex flex-col w-full overflow-x-scroll no-scrollbar'>
-      <p className='m-0 text-sm text-left px-2 text-secondary-foreground font-sans '>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
-          {currentAnswer.contents}
-        </ReactMarkdown>
-      </p>
-      <div className='flex w-full justify-end mt-2 gap-2'>
-        <div
-          onClick={handleCopy}
-          className='inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md text-xs 
-          font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-          disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
-          bg-sidebar text-secondary-foreground shadow-sm hover:bg-secondary/80 h-8 w-max px-2 cursor-pointer '>
-          <i className="fa-regular fa-clipboard"></i>
-          Copy
+    return (
+      <div className="flex justify-center">
+        <div className="rounded-md text-xs bg-secondary text-secondary-foreground px-4 py-2 m-4">
+          Some Error Occurred While Generating Response
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="flex gap-2 flex-col space-y-1.5 border border-[#333]/80 rounded-md p-2 bg-secondary/30 backdrop-blur-lg relative">
+      <div className='flex w-full justify-end'>
+        <div className="flex flex-col w-full overflow-x-auto">
+          <div className="text-sm text-left text-secondary-foreground font-sans">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeHighlight]}
+            >
+              {currentAnswer.contents}
+            </ReactMarkdown>
+          </div>
+        </div>
+        <span className="w-10">
+          <img
+            className="rounded-xl w-full aspect-square object-cover"
+            src={botIcon}
+            alt="Bot Icon"
+          />
+        </span>
+      </div>
+      <div className="flex justify-end mt-2 absolute bottom-0 right-0">
+        <Button
+          onClick={handleCopy}
+          variant={'ghost'} className="text-muted-foreground hover:text-primary selection-none p-2 h-6"
+        >
+          <Clipboard className='!w-3'/>
+          <span className='text-xs'>Copy</span>
+        </Button>
+      </div>
     </div>
-  </div>
+  );
 }

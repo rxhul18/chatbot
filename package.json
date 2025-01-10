@@ -33,6 +33,7 @@
   "dependencies": {
     "@changesets/cli": "^2.27.11",
     "@radix-ui/react-slot": "^1.1.1",
+    "@tabler/icons-react": "^3.28.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.469.0",
