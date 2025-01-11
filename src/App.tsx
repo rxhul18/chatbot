@@ -17,6 +17,10 @@ export default function App() {
                         userIcon=""
                         startOpen={true}
                         authToken={""}
+                        title="Something dfvfdv"
+                        description="Why not ask you questions?" 
+                        chatBotIconClassName=""
+                        logoImg=""
                     />
                 </div>
             </div>

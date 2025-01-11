@@ -6,7 +6,6 @@ import Input from './inputArea';
 import { chatBotAttributes } from '../../store/atoms/attributesData';
 import { chatWindowState } from '../../store/atoms/chatWindowState';
 
-
 export default function ChatBotContanier({
     prompt,
     userIcon,
@@ -15,7 +14,10 @@ export default function ChatBotContanier({
     chatWindowStyle,
     chatBotIconClassName,
     startOpen,
-    authToken
+    authToken,
+    title,
+    description,
+    logoImg
 }: ChatBotAttr) {
     const setAttributeData = useSetRecoilState(chatBotAttributes)
     const [open, setWindowOpen] = useRecoilState(chatWindowState)
@@ -32,8 +34,8 @@ export default function ChatBotContanier({
     }, []);
 
     useEffect(() => {
-        setAttributeData({ authToken, prompt, botIcon, userIcon })
-    }, [authToken, prompt, botIcon, userIcon])
+        setAttributeData({ authToken, prompt, botIcon, userIcon, title, description, logoImg })
+    }, [authToken, prompt, botIcon, userIcon, title, description, logoImg])
 
     return (
         <div className={`flex flex-col items-end justify-end !h-[690px] w-[420px] gap-2 font-sans antialiased ${!open && `h-min w-min `} ${chatBotWrapperStyle}`}>
