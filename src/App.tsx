@@ -15,10 +15,12 @@ export default function App() {
                         // prompt="You are an artist" 
                         startOpen={true}
                         authToken={""}
-                        title="Something dfvfdv"
-                        description="Why not ask you questions?" 
-                        chatBotIconClassName=""
+                        title="Something Here"
+                        description="And here too blah blah!" 
+                        chatBotIconClassName="rounded-full "
                         logoImg=""
+                        // toggleIconRounded="full"//sm, md, lg, 2xl, rounded, xl
+                        // toggleIconPadding="14"//1,2,3...
                     />
                 </div>
             </div>

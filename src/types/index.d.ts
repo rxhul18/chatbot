@@ -7,9 +7,13 @@ export type ChatBotAttr = {
     chatBotIconClassName?: string | null,
     startOpen?: boolean | null,
     authToken: string | null,
-    title: string | null,
-    description: string|null,
-    logoImg: string|null    
+    title?: string | null,
+    description?: string|null,
+    logoImg?: string|null,
+    toggleIconRounded?: string|null,
+    toggleIconPadding?: string|null,
+    toggleIconBorder?: string|null,
+
 }
 
 export interface Question {
