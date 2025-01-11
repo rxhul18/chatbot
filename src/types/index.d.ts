@@ -6,7 +6,10 @@ export type ChatBotAttr = {
     chatWindowStyle?: string | null,
     chatBotIconClassName?: string | null,
     startOpen?: boolean | null,
-    authToken: string | null    
+    authToken: string | null,
+    title: string | null,
+    description: string|null,
+    logoImg: string|null    
 }
 
 export interface Question {

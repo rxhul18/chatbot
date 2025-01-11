@@ -15,6 +15,17 @@
     "preview": "vite preview",
     "type-check": "tsc --noEmit"
   },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18"
   },
@@ -32,6 +43,7 @@
   "keywords": [],
   "dependencies": {
     "@changesets/cli": "^2.27.11",
+    "@radix-ui/react-dropdown-menu": "^2.1.4",
     "@radix-ui/react-slot": "^1.1.1",
     "@tabler/icons-react": "^3.28.1",
     "class-variance-authority": "^0.7.1",
@@ -44,9 +56,11 @@
     "recoil": "^0.7.7",
     "rehype-highlight": "^7.0.1",
     "remark-gfm": "^4.0.0",
+    "shadcn": "^2.1.8",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "uuid": "^11.0.4"
+    "uuid": "^11.0.4",
+    "vite-plugin-css-injected-by-js": "^3.5.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
