@@ -61,7 +61,7 @@ export default function Input() {
         className={`absolute right-2 top-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${disabled && `opacity-20 cursor-not-allowed`}`}
         title="Send"
       >
-          <CircleFadingArrowUp />
+        <CircleFadingArrowUp />
       </Button >
       <InputOptions />
     </div>

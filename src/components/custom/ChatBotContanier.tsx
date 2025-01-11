@@ -45,10 +45,10 @@ console.log(toggleIconRounded);
 
     
     return (
-        <div className={`flex flex-col items-end justify-end w-[420px] gap-2 font-sans antialiased ${!open && `h-min w-min `} ${chatBotWrapperStyle}`}>
-            <div className={`font-sans bg-background rounded-2xl p-[0.6rem] box-border flex flex-col justify-end items-center
-         w-full h-full min-w-[270px] min-h-[300px] antialiased text-lg relative backdrop-blur-sm border border-border/60
-         resize overflow-auto dark:border-border ${!open && ` w-0 h-0 hidden `} ${chatWindowStyle}}`}>
+        <div className={`flex flex-col items-end justify-end !h-[690px] w-[420px] gap-2 font-sans antialiased ${!open && `h-min w-min `} ${chatBotWrapperStyle}`}>
+            <div className={`font-sans rounded-2xl p-[0.6rem] box-border flex flex-col justify-end items-center
+         w-full h-full min-w-[270px] min-h-[300px] antialiased text-lg relative backdrop-blur-sm border border-border/60 
+          dark:border-border ${!open && ` w-0 h-0 hidden `} ${chatWindowStyle}}`}>
                 <ChatArea />
                 <Input />
                 {creditsVisible&&<div className='w-full flex items-center justify-center rounded-2xl mt-1'>
