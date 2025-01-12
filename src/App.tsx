@@ -19,10 +19,12 @@ export default function App() {
                         authToken={""}
                         title="Something Here"
                         description="And here too blah blah!" 
-                        chatBotIconClassName="rounded-full "
+                        // chatBotIconClassName="rounded-full "
                         logoImg=""
-                        // toggleIconRounded="full"//sm, md, lg, 2xl, rounded, xl
-                        // toggleIconPadding="14"//1,2,3...
+                        toggleIconRounded="full" //sm, md, lg, 2xl, rounded, xl
+                        toggleIconPadding="14px" //1px,2px,3...
+                        height="500px" // 400px ...
+                        width="350px" // 200px ....
                     />
                 </div>
             </div>

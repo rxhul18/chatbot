@@ -11,9 +11,10 @@ export type ChatBotAttr = {
     description?: string|null,
     logoImg?: string|null,
     toggleIconRounded?: string|null,
-    toggleIconPadding?: string|null,
+    toggleIconPadding?:  CSSProperties['padding'],
     toggleIconBorder?: string|null,
-
+    height?: CSSProperties['height'],
+    width?: CSSProperties['width']
 }
 
 export interface Question {
