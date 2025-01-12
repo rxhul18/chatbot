@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { allChats } from '../../store/atoms/allChats';
-
+import { IconSend2 } from '@tabler/icons-react';
 import Chat from './answerComponent';
 import QuestionComponent from './questions';
+import { ChatBotAttr } from '@/types';
+import { chatBotAttributes } from '../../store/atoms/attributesData';
+import { Button } from '../ui/button';
 
 function scrollToBottom(element: HTMLElement) {
   element.scrollTop = element.scrollHeight
@@ -35,15 +38,44 @@ export default function ChatArea() {
 }
 
 function HeroSection() {
+  const chatBotAttributesData: ChatBotAttr | null = useRecoilValue(chatBotAttributes) || null;
+  const title = chatBotAttributesData?.title || "PluraBot";
+  const description = chatBotAttributesData?.description || "Agents and Micro-Services";
+  const logo = chatBotAttributesData?.logoImg || "https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75";
+
+  const FaqQuestionList = [
+    {
+      question: "What is Plura?",
+      description: "Plura is a platform that helps you to create knowledge base."
+    },
+    {
+      question: "How to create a new account?",
+      description: "You can create a new account clicking on the 'Sign Up' at right."
+    }
+  ]
+
   return (
     <div className='mb-8 flex items-center justify-center flex-col gap-2 cursor-crosshair w-full'>
-      <img className="w-14 aspect-square" alt='plura' src={'https://www.plura.pro/_next/image?url=%2Fimages%2Fplura-logo.png&w=64&q=75'}></img>
+      <img className="w-14 aspect-square" alt='plura' src={logo}></img>
       <h2 className='text-3xl md:text-4xl font-semibold tracking-tighter drop-shadow-sm max-w-3xl select-none'>
-        PluraBot
+        {title}
       </h2>
       <p className='text-center text-base font-semibold text-muted-foreground bg-clip-text max-w-xl select-none'>
-        Agents and Micro-Services
+        {description}
       </p>
+      {FaqQuestionList.map((faq, index) => {
+        return (
+          <div className="bg-white shadow-lg rounded-lg px-4 py-3 gap-3 flex items-center justify-between w-[90%] mt-2" key={index}>
+            <div className='text-left flex flex-col gap-1'>
+              <p className="text-black font-semibold leading-[1]">{faq.question}</p>
+              <p className="text-gray-500 text-sm leading-[1]">{faq.description}</p>
+            </div>
+            <Button variant={"secondary"} size={"icon"} title="Send a message" className='min-w-9 cursor-pointer'>
+              <IconSend2 size={24} />
+            </Button>
+          </div>
+        )
+      })}
     </div>
   )
 }

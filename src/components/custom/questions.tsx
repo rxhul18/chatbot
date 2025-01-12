@@ -57,9 +57,9 @@ export default function QuestionComponent(props: Question) {
         {!editing &&
           <Button
             onClick={handleEdit}
-            variant={"default"} className="text-muted-foreground hover:text-primary bg-secondary hover:bg-secondary selection-none p-2 h-6 absolute right-2 -bottom-2"
+            variant={"default"} className="text-muted-foreground hover:text-primary bg-secondary hover:bg-secondary selection-none p-2 h-6 absolute right-2"
           >
-            <Pencil className='!w-3' />
+          <Pencil className='!w-3' />
           </Button>
         }
       </div>

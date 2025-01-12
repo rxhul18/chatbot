@@ -49,19 +49,19 @@ export default function Input() {
   }
 
   return (
-    <div className='bg-secondary/30 rounded-2xl w-full flex flex-col border border-border/60  dark:border-border relative mt-2 '>
+    <div className='bg-secondary/30 rounded-xl w-full flex flex-col border relative mt-2 '>
       <Textarea ref={inputElement} onKeyUp={handleKeyDown} placeholder='Ask your query and press Enter'
         className='h-24 resize-none outline-none ring-0 no-scrollbar overflow-y-scroll focus-visible:ring-0 focus-visible:ring-neutral-900 
-      focus:oultine-none focus:stroke-none border-none focus:border-none placeholder:text-neutral-600 text-white text-md'/>
+      focus:oultine-none focus:stroke-none border-none focus:border-none placeholder:text-neutral-600 text-md'/>
       <Button
         ref={submitBtn}
         onClick={handleSubmit}
         variant={"default"}
         size={"icon"}
-        className={`absolute right-2 top-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${disabled && `opacity-20 cursor-not-allowed`}`}
+        className={`absolute right-2 top-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${disabled && `opacity-40 cursor-not-allowed`}`}
         title="Send"
       >
-          <CircleFadingArrowUp />
+        <CircleFadingArrowUp />
       </Button >
       <InputOptions />
     </div>
@@ -70,21 +70,15 @@ export default function Input() {
 
 function InputOptions() {
   return (
-    <div className='bg-secondary/30 rounded-2xl flex flex-grow items-center backdrop-blur-lg supports-[backdrop-filter]:bg-transparent dark:border-border px-4 py-2 h-10 gap-2 '>
-      <div className='inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs 
-        font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-        disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
-        bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-7 px-2 cursor-pointer'>
+    <div className='bg-secondary flex flex-grow items-center supports-[backdrop-filter]:bg-transparent p-2 h-10 gap-2 '>
+      <Button className='bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-7 text-xs px-2 cursor-pointer' typeof='file' type="button">
         <Paperclip />
         Media
-      </div>
-      <div className='inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs 
-        font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
-        disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
-        bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-7 px-2 cursor-pointer'>
+      </Button>
+      <Button className='bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-7 text-xs px-2 cursor-pointer' typeof='file' type="button">
         <IconMicrophone />
         Audio
-      </div>
+      </Button>
     </div>
   )
 }
