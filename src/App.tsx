@@ -12,7 +12,7 @@ export default function App() {
                     <h1 className='text-5xl md:text-6xl font-semibold tracking-tighter drop-shadow-sm select-none'>This is how the chatbot looks like.</h1>
                     <ChatBot
                         chatBotWrapperStyle="fixed bottom-4 right-4 md:top-58 max-h-[600px]"
-                        chatWindowStyle="bg-black"
+                        chatWindowStyle="bg-secondry"
                         botIcon=""
                         userIcon=""
                         startOpen={true}
