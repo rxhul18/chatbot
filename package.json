@@ -6,8 +6,9 @@
   "sideEffects": false,
   "license": "AGPL-3.0-only",
   "scripts": {
+    "build": "rimraf dist && tsc && vite build",
+    "build:types": "tsc --emitDeclarationOnly",
     "dev": "vite --port 3000",
-    "build": "tsc -b && vite build",
     "prepublishOnly": "bun run build",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
     "format:fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx}\"",
@@ -17,10 +18,13 @@
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.umd.js",
+      "default": "./dist/index.es.js"
     }
   },
   "files": [
@@ -74,9 +78,11 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "postcss": "^8.4.49",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "vite-plugin-dts": "^4.5.0"
   }
 }

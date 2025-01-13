@@ -1,12 +1,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   plugins: [
     react(),
-    cssInjectedByJsPlugin()
+    cssInjectedByJsPlugin(),
+    dts({
+      include: ['src'],
+      exclude: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'src/vite-env.d.ts'],
+      outDir: 'dist/types',
+      rollupTypes: true,
+      staticImport: true,
+      insertTypesEntry: true
+    })
   ],
   resolve: {
     alias: {
